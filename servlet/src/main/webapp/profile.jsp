@@ -8,9 +8,9 @@
 <body>
 <div class="jumbotron">
     <div class="container">
-        <img src="https://avatars0.githubusercontent.com/u/28046784?s=200&v=4">
-        <br/>
-        <a href="/login">[Login with Google]</a>
+        <img src="${requestScope.avatar}">
+        <h1>Hello ${requestScope.name}</h1>
+        <h2>Your email is ${requestScope.email}</h2>
     </div>
 </div>
 </body>
