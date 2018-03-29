@@ -1,6 +1,5 @@
 package com.lohika.jclub.oauth2;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -18,8 +17,6 @@ public class Oauth2Utils {
     private static final List<String> SCOPES = Arrays.asList(
             "https://www.googleapis.com/auth/userinfo.email",
             "https://www.googleapis.com/auth/userinfo.profile");
-
-    private static final File file = new File(System.getProperty("user.home") + "/.store/");
 
     static AuthorizationCodeFlow initializeFlow() throws IOException {
         JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
