@@ -17,6 +17,7 @@ import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Tokeninfo;
+import com.google.api.services.oauth2.model.Userinfoplus;
 
 public class Oauth2CliApp {
 
@@ -26,19 +27,21 @@ public class Oauth2CliApp {
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        JacksonFactory jacksonFactory = JacksonFactory.getDefaultInstance();
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jacksonFactory,
+        JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory,
                 new InputStreamReader(Oauth2CliApp.class.getResourceAsStream("/client_secrets.json")));
         DataStoreFactory dataStoreFactory = new MemoryDataStoreFactory();
 
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(netHttpTransport, jacksonFactory, clientSecrets.getDetails().getClientId(), clientSecrets.getDetails().getClientSecret(), SCOPES)
-                .setDataStoreFactory(dataStoreFactory)
-                .build();
+        GoogleAuthorizationCodeFlow flow =
+                new GoogleAuthorizationCodeFlow.Builder(netHttpTransport, jsonFactory, clientSecrets.getDetails().getClientId(), clientSecrets.getDetails().getClientSecret(), SCOPES)
+                        .setDataStoreFactory(dataStoreFactory)
+                        .build();
         Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport, jsonFactory, credential).setApplicationName("").build();
 
-        Oauth2 oauth2= new Oauth2.Builder(netHttpTransport, jacksonFactory, credential).setApplicationName("").build();
-        Tokeninfo execute = oauth2.tokeninfo().execute();
-        System.out.println(execute.toPrettyString());
-        System.out.println(oauth2.userinfo().get().execute().toPrettyString());
+        Tokeninfo tokeninfo = oauth2.tokeninfo().setAccessToken(credential.getAccessToken()).execute();
+        System.out.println(tokeninfo.toPrettyString());
+        Userinfoplus userinfoplus = oauth2.userinfo().get().execute();
+        System.out.println(userinfoplus.toPrettyString());
     }
 }
