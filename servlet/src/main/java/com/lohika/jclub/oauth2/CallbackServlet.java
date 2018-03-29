@@ -6,18 +6,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeServlet;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeCallbackServlet;
 import com.google.api.client.http.GenericUrl;
 
-/**
- * https://developers.google.com/identity/protocols/OAuth2?csw=1
- */
-@WebServlet(urlPatterns = "/login")
-public class LoginServlet extends AbstractAuthorizationCodeServlet {
+@WebServlet(urlPatterns = "/callback")
+public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+    protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential) throws ServletException, IOException {
+        req.getSession().setAttribute("credential", credential);
+        resp.sendRedirect("/profile");
     }
 
     @Override

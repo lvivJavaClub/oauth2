@@ -8,7 +8,7 @@
 <body>
 <div class="jumbotron">
     <div class="container">
-        <img src="${requestScope.avatar}" with="100" height="100">
+        <img src="${requestScope.avatar}" with="100" height="100" style="border-radius: 100px;">
         <h1>Hello ${requestScope.name}</h1>
         <h2>Your email is ${requestScope.email}</h2>
     </div>
