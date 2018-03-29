@@ -26,7 +26,7 @@ public class Oauth2CliApp {
             "https://www.googleapis.com/auth/userinfo.email",
             "https://www.googleapis.com/auth/userinfo.profile");
 
-    private static final File file = new File(System.getProperty("user.home") + ".store/");
+    private static final File file = new File(System.getProperty("user.home") + "/.store/");
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();

@@ -17,7 +17,7 @@ public class LoginServlet extends AbstractAuthorizationCodeServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+        resp.sendRedirect("/profile");
     }
 
     @Override
