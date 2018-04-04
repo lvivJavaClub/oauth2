@@ -4,6 +4,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * Tutorial on Spring Security OAuth2:
+ * https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_simple
+ */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
