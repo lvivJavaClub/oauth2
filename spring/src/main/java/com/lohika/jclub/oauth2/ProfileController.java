@@ -12,6 +12,17 @@ public class ProfileController {
 
     @RequestMapping("/profile")
     public String profile(Principal principal, Map<String, Object> model) {
+        addPrincipalToMap(principal, model);
+        return "profile";
+    }
+
+    @RequestMapping("profile_short")
+    public String profileShort(Principal principal, Map<String, Object> model) {
+        addPrincipalToMap(principal, model);
+        return "profile_short";
+    }
+
+    private void addPrincipalToMap(Principal principal, Map<String, Object> model) {
         if (principal instanceof OAuth2Authentication) {
             Object principalDetail = ((OAuth2Authentication) principal).getDetails();
             if (principalDetail instanceof OAuth2AuthenticationDetails) {
@@ -20,6 +31,5 @@ public class ProfileController {
             Object details = ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
             model.put("user", details);
         }
-        return "profile";
     }
 }

@@ -6,11 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <div class="jumbotron">
     <div class="container">
         <img src="https://avatars0.githubusercontent.com/u/28046784?s=200&v=4">
         <br/>
-        <a href="/profile">[Login with Google]</a>
+        <a href="/login/google">[Login with Google]</a>
+        <div id="user-details" class="container"></div>
     </div>
 </div>
 </body>
@@ -28,4 +31,11 @@
         text-align: center;
     }
 </style>
+<script>
+    /*<![CDATA[*/
+    (function(){
+        $("#user-details").load("/profile_short");
+    }());
+    /*]]>*/
+</script>
 </html>
