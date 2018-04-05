@@ -1,0 +1,9 @@
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: profile
+      auto-approve-scopes: '.*'
+      pre-established-redirect-uri: http://localhost:8080/
+      use-current-uri: false

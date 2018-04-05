@@ -7,3 +7,12 @@ google:
     scope: profile,email
   resource:
     user-info-uri: https://www.googleapis.com/userinfo/v2/me
+auth-server:
+  client:
+    client-id: acme
+    client-secret: acmesecret
+    user-authorization-uri: http://localhost:8081/oauth/authorize
+    access-token-uri: http://localhost:8081/oauth/token
+    scope: profile
+  resource:
+    user-info-uri: http://localhost:8081/me
