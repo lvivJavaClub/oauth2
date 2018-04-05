@@ -1,1 +1,9 @@
-
+google:
+  client:
+    client-id: 839588394571-3g6fd9pj83k4d954njdbqo0itc3jbmfr.apps.googleusercontent.com
+    client-secret: JptuwYnWjn0Fj3xOzhndlwcj
+    user-authorization-uri: https://accounts.google.com/o/oauth2/auth
+    access-token-uri: https://www.googleapis.com/oauth2/v3/token
+    scope: profile,email
+  resource:
+    user-info-uri: https://www.googleapis.com/userinfo/v2/me

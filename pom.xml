@@ -8,6 +8,8 @@
   <modules>
     <module>cli</module>
     <module>servlet</module>
+    <module>spring</module>
+    <module>auth-server</module>
   </modules>
   <packaging>pom</packaging>
 
