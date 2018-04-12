@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -25,6 +26,7 @@ import org.springframework.web.filter.CompositeFilter;
  */
 @Configuration
 @EnableOAuth2Client
+@Order
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -45,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(authServer(), "/login/authServer"));
+        filters.add(ssoFilter(authServer(), "/login/auth-server"));
         filters.add(ssoFilter(google(), "/login/google"));
         filter.setFilters(filters);
         return filter;

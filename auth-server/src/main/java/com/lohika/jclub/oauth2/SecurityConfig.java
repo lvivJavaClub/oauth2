@@ -1,34 +1,33 @@
 package com.lohika.jclub.oauth2;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 @Configuration
 @EnableAuthorizationServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers()
-                .antMatchers("/login", "/oauth/authorize")
-                .and()
+        http.antMatcher("/**")
                 .authorizeRequests()
+                .antMatchers("/login**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin().permitAll();
+                .and().formLogin().permitAll()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").clearAuthentication(true)
+                .and().csrf().disable();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.parentAuthenticationManager(authenticationManager)
-                .inMemoryAuthentication().withUser("user").password("123").roles("USER");
+    @Configuration
+    @EnableResourceServer
+    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
+        }
     }
 }
