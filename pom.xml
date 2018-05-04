@@ -21,4 +21,36 @@
     <java.version>1.8</java.version>
   </properties>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <configuration>
+          <images>
+            <image>
+              <alias>webapp</alias>
+              <name>fabric8/compose-demo:latest</name>
+
+              <external>
+                <type>compose</type>
+                <basedir>${project.basedir}/compose-plugin</basedir>
+                <composeFile>docker-compose.yml</composeFile>
+              </external>
+            </image>
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>docker:run</id>
+            <phase>install</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

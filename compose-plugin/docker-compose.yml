@@ -1,0 +1,15 @@
+version: '2'
+services:
+  web:
+    image: docker-com.lohika.jclub.oauth2-spring
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTH_HOST=auth
+    links:
+      - auth
+
+  auth:
+    image: docker-com.lohika.jclub.oauth2-auth-server
+    ports:
+      - "8081:8081"
