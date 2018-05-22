@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    image: docker-com.lohika.jclub.oauth2-spring
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTH_HOST=auth
+    links:
+      - auth
+    networks:
+      - front
+
+  auth:
+    image: docker-com.lohika.jclub.oauth2-auth-server
+    ports:
+      - "8081:8081"
+    networks:
+      - front
+
+networks:
+  front:
+      driver: bridge
+  back:
+    driver: bridge
